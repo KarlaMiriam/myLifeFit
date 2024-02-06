@@ -1,5 +1,5 @@
 import React , {Component }from'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet, TextInput, Alert,ImageBackground,FlatList} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet, TextInput, Alert,ImageBackground} from 'react-native';
 
 class App extends Component {
   constructor(props) {
@@ -64,37 +64,59 @@ class App extends Component {
 
     return (
       <View style={styles.area}>
+        <ImageBackground
+          style={styles.backgroundImage}
+          source={require('./assets/imagemFundoc.jpg')}
+        />
+
+        <View style={styles.viewCentral}></View>
         <Text style={styles.textoPrincipal}>
-          CALORIAS DIÁRIAS
+          BEM-VINDO AO MYFIT
         </Text>
         <View style={styles.login}>
         <Text style={styles.textSubtitulo}>
-          Calorias ativas
+          Faça Login
         </Text>
-        <TouchableOpacity style={styles.buttonCaloriasAtivas} onPress={() => this.entrar()}>
-              <Text style={styles.buttonTextCaloriasAtivas} >
-                  Colocar calorias do relogio AQUI!
-              </Text>
-        </TouchableOpacity>
-        <Text style={styles.textSubtitulo}>
-          Total de Calorias
-        </Text>
-        <TouchableOpacity style={styles.buttonCaloriasTotais} onPress={() => this.entrar()}>
-              <Text style={styles.buttonTextCaloriasTotais} >
-                  Colocar calorias do relogio AQUI!
-              </Text>
-        </TouchableOpacity>
-        <View>
+        <TextInput
+          style={styles.inputEmail}
+          placeholder="Digite seu e-mail"
+          underlineColorAndroid="transparent"
+          onChangeText={(texto) => this.pegaEmail(texto)}
+        />
+        <TextInput
+          style={styles.inputSenha}
+          placeholder="Digite sua senha"
+          underlineColorAndroid="transparent"
+          onChangeText={(texto) => this.pegaSenha(texto)}
+        />
         <TouchableOpacity style={styles.buttonEntrar} onPress={() => this.entrar()}>
-              <Text style={styles.buttonTextEntrar} >
-                  ANOTAR CALORIAS
-              </Text>
+          <View>
+            <Text style={styles.buttonTextEntrar} >
+                ENTRAR
+            </Text>
+          </View>
+        </TouchableOpacity> 
+        <Text style={styles.textMensagemPadrao}>{nomeApp}</Text>
+        <TouchableOpacity style={styles.buttonCadastrar}>
+          <View>
+
+            <Text style={styles.buttonTextCadastrar} >
+              CADASTRE-SE
+            </Text>
+          </View>
         </TouchableOpacity>
-          </View>
-          </View>
-          </View>
-);
-}
+        </View> 
+        <Text style={styles.textMensagemPadrao}>{this.state.email}</Text>
+        <Text style={styles.textMensagemPadrao}>{this.state.senha}</Text>
+        <View style={styles.viewCentral}></View>
+        <Text style={styles.textMensagemPadrao}></Text>
+        
+          {this.state.nome}
+        
+      </View>
+
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -104,60 +126,92 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#000000',
   },
- 
- textoPrincipal: {
+  login: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 80
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems:'center',
+    resizeMode: 'fixed', 
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+
+  textoPrincipal: {
     justifyContent: 'center',
     fontFamily: 'cursive-font',
     fontSize: 40,
     color: '#FF00FF',
     marginVertical: 15,
     textAlign: 'center',
+    marginTop: 140,
     letterSpacing: 2,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 10
+     textShadowRadius: 10
+    
   },
   textSubtitulo: {
-    fontSize: 20,
+    fontSize: 15,
     color: '#FFFFFF',
     alignItems: 'center',
     margin: 5,
     fontStyle: 'italic',
     textAlign: 'center',
   },
-  buttonCaloriasAtivas: {
-    fontSize: 35,
+  buttonEntrar: {
+    fontSize: 25,
     borderColor: '#FF00FF',
     borderRadius: 25,
     borderWidth: 2,
-    width: '100%',
+    width: '70%',
     backgroundColor: '#000000',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,  // Ajuste a margem superior conforme necessário
+    marginTop: 20
   },
-  buttonCaloriasTotais: {
-    fontSize: 35,
+  buttonCadastrar: {
+    fontSize: 25,
     borderColor: '#FF00FF',
     borderRadius: 25,
     borderWidth: 2,
-    width: '100%',
+    width: '50%',
     backgroundColor: '#000000',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,  // Ajuste a margem inferior conforme necessário
+    marginBottom: 40
   },
-  buttonTextCaloriasAtivas: {
-   fontSize: 40,
+  buttonTextEntrar: {
+   fontSize: 15,
    fontWeight: 'bold',
-   color: '#FFFFFF',
+   color: '#DDA0DD',
    textAlign: 'center',
+   justifyContent: 'center',
+    alignItems: 'center',
   },
-  buttonTextCaloriasTotais: {
-    fontSize: 40,
+  buttonTextCadastrar: {
+    fontSize: 15,
     fontWeight: 'Calibri',
     color: '#FFFFFF',
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textMensagemPadrao: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    margin: 5,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+    textDecorationLine: 'underline'
   },
   viewCentral: {
     height: 10,
@@ -171,6 +225,26 @@ const styles = StyleSheet.create({
     height: 45,
     borderWidth: 1,
     borderColor:'#FFFFFF',
+    margin: 10,
+    fontsize: 20,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputSenha:{
+    width: '90%',
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
+    height: 45,
+    borderWidth: 1,
+    borderColor:'#FFFFFF',
+    margin: 10,
+    fontsize: 20,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  
   },
   textBasic: {
     color: '#FFFFFF',
